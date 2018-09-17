@@ -37,13 +37,22 @@ class AlphabetDetector:
         """
         
         unistr = ''.join(unistr.strip().split())
-        print('DEBUG: unistr = ' + unistr)
         if ignore_nl:
             return all(self.chr_in_alphabet(uchr, alphabet)
                        for uchr in unistr if uchr.isalpha())
         else:
             return all(self.chr_in_alphabet(uchr, alphabet)
                        for uchr in unistr)
+
+    def only_english(self, unistr, ignore_nl=False):
+        unistr = ''.join(unistr.strip().split())
+        if ignore_nl:
+            return all(self.chr_english(uchr)
+                       for uchr in unistr if uchr.isalpha())
+        else:
+            return all(self.chr_english(uchr)
+                       for uchr in unistr)
+
 
     def detect_alphabet(self, unistr):
         return set(ud.name(char).split(' ')[0]
@@ -81,3 +90,12 @@ class AlphabetDetector:
     def is_thai(self, unistr):
         return True if self.only_alphabet_chars(unistr, 'THAI') else False
 
+    def is_english(self, unistr):
+        return self.only_english(unistr)
+
+    def is_latin_nonenglish(self, unistr):
+        """
+        Check whether all non-whitespace characters in unistr are latin but
+        contains at least one non-English character.
+        """
+        return self.is_latin(unistr) and (not self.is_english(unistr))

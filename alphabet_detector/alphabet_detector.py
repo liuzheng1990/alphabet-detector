@@ -25,9 +25,25 @@ class AlphabetDetector:
         return (i>=65 and i<=90) or (i>=97 and i<=122)
 
 
-    def only_alphabet_chars(self, unistr, alphabet):
-        return all(self.chr_in_alphabet(uchr, alphabet)
-                   for uchr in unistr if uchr.isalpha())
+    def only_alphabet_chars(self, unistr, alphabet, ignore_nl=False):
+        """
+        In this fork, all types of language testing default to return False if the string contains
+        non-alphabetic non-whitespace charaters, such as punctuation marks.
+
+        To ignore non-letter characters, set `ignore_nl=True`.
+
+        CAUTION: If `ignore_nl=False`, existence of numbers will also make the function
+        return to false.
+        """
+        
+        unistr = ''.join(unistr.strip().split())
+        print('DEBUG: unistr = ' + unistr)
+        if ignore_nl:
+            return all(self.chr_in_alphabet(uchr, alphabet)
+                       for uchr in unistr if uchr.isalpha())
+        else:
+            return all(self.chr_in_alphabet(uchr, alphabet)
+                       for uchr in unistr)
 
     def detect_alphabet(self, unistr):
         return set(ud.name(char).split(' ')[0]

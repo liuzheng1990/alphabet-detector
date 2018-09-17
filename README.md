@@ -11,11 +11,13 @@ Forked: Liu Zheng (personal blog: [liutheprogrammer.wordpress.com](http://liuthe
 ## Installation (original version)
 <code>pip install alphabet-detector</code>  
 
+For now, this forked version does not support PyPI install, before the author understands all the copyright issues. To use this fork, please clone the repository, copy the `alphabet_detector_lz` directory to the project directory and import it locally.
+
 ## Usage
 To instantiate an AlphabetDetector (the object is used for speed optimization):
 
 ```python
-from alphabet_detector import AlphabetDetector
+from alphabet_detector_lz import AlphabetDetector
 ad = AlphabetDetector()
 ```
 

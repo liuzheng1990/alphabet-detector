@@ -5,7 +5,8 @@
 A library to detect what alphabet something is written in. **Works on Python 2.7+ and 3.3+**
 
 ## Author
-Eli Finkelshteyn (founder [constructor.io](http://www.constructor.io))
+Original: Eli Finkelshteyn (founder [constructor.io](http://www.constructor.io))
+Forked: Liu Zheng (personal blog: [liutheprogrammer.wordpress.com](http://liutheprogrammer.wordpress.com))
 
 ## Installation (original version)
 <code>pip install alphabet-detector</code>  
@@ -32,6 +33,18 @@ ad.only_alphabet_chars(u"Cyrillic and кириллический", "LATIN") #Fal
 ad.only_alphabet_chars(u"кириллический", "CYRILLIC") #True
 ```
 
+**Change in this fork**:
+
+Unlike the original version, where non-whitespace non-alphabetic characters (such as numerical digits, punctuation symbols, etc.) were ignored, in this thread, the `only_alphabet_chars` method dafaults not
+to ignore them. One can set `ignore_nl=True` ("nl" short for "non letter") to ignore them if needed. See the examples below:
+
+```python
+ad.only_alphabet_chars(u"Hello world!", "LATIN") #False in this fork, while True in original version
+ad.only_alphabet_chars(u"Hello world!", "LATIN", ignore_nl=True) #True
+```
+
+As a result, the following `is_*` functions all default not to ignore the non-alphabetic characters.
+
 You can also request free-style detection of any unicode string:
 
 ```python
@@ -48,5 +61,19 @@ ad.is_latin(u"howdy") #True
 ad.is_cjk(u"hi") #False
 ad.is_cjk(u'汉字') #True
 ```
+
+**New in this fork**:
+
+In this fork, a function called `only_english` is added to explicitly check whether a string contains only English letters (again, a `ignore_nl=False` by default). Examples:
+
+```python
+print("'Hello world 牛逼' only contains English letters:", ad.only_english('Hello world!'))
+print("'det forårsaker første' is latin but contains non-English characters:", 
+								ad.is_latin_nonenglish('det forårsaker første'))
+
+print("'Hello world' is latin but contains non-English characters:", 
+								ad.is_latin_nonenglish('Hello world'))
+```
+
 
 **NOTE: all strings are expected to be unicode to keep things consistent. Conversion is *never* done for you, and errors are thrown when a string is not unicode.**

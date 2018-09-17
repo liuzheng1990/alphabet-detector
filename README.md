@@ -7,7 +7,7 @@ A library to detect what alphabet something is written in. **Works on Python 2.7
 ## Author
 Eli Finkelshteyn (founder [constructor.io](http://www.constructor.io))
 
-## Installation
+## Installation (original version)
 <code>pip install alphabet-detector</code>  
 
 ## Usage

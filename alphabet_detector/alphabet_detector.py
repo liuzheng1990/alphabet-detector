@@ -7,14 +7,19 @@ class AlphabetDetector:
         self.alphabet_letters = defaultdict(dict)
         self.no_memory = no_memory
 
+    # def is_in_alphabet(self, uchr, alphabet):
+    #     if self.no_memory:
+    #         return alphabet in ud.name(uchr)
+    #     try:
+    #         return self.alphabet_letters[alphabet][uchr]
+    #     except KeyError:
+    #         return self.alphabet_letters[alphabet].setdefault(
+    #             uchr, alphabet in ud.name(uchr))
+
+    ## Let's first try a lightweight memory-less is_in_alphabet
     def is_in_alphabet(self, uchr, alphabet):
-        if self.no_memory:
-            return alphabet in ud.name(uchr)
-        try:
-            return self.alphabet_letters[alphabet][uchr]
-        except KeyError:
-            return self.alphabet_letters[alphabet].setdefault(
-                uchr, alphabet in ud.name(uchr))
+        return alphabet in ud.name(uchr)
+
 
     def only_alphabet_chars(self, unistr, alphabet):
         return all(self.is_in_alphabet(uchr, alphabet)

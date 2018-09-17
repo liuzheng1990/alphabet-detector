@@ -1,4 +1,4 @@
-from alphabet_detector import AlphabetDetector
+from alphabet_detector_lz import AlphabetDetector
 
 ad = AlphabetDetector()
 
